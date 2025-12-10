@@ -7,9 +7,9 @@
   "miniapp": {
     "version": "1",
     "name": "Slice",
-    "homeUrl": "https://slice-miniapp.vercel.app/",
-    "iconUrl": "https://slice-miniapp.vercel.app/assets/icon.png",
-    "splashImageUrl": "https://slice-miniapp.vercel.app/assets/splash.png",
+    "homeUrl": "https://slice-ochre.vercel.app/",
+    "iconUrl": "https://slice-ochre.vercel.app/assets/icon.png",
+    "splashImageUrl": "https://slice-ochre.vercel.app/assets/splash.png",
     "splashBackgroundColor": "#050816",
     "subtitle": "Choose your next hour with one tap.",
     "description": "Slice is a tiny planner for your next hour: tap a slice like Deep Work or Rest and watch your day fill with color.",
@@ -19,13 +19,13 @@
       "planner",
       "hour"
     ],
-    "heroImageUrl": "https://slice-miniapp.vercel.app/assets/hero.png",
+    "heroImageUrl": "https://slice-ochre.vercel.app/assets/hero.png",
     "tagline": "Choose your next hour with one tap.",
     "ogTitle": "Slice",
     "ogDescription": "Slice is a tiny planner for your next hour: tap a slice like Deep Work or Rest and watch your day fill with color.",
-    "ogImageUrl": "https://slice-miniapp.vercel.app/assets/hero.png",
+    "ogImageUrl": "https://slice-ochre.vercel.app/assets/hero.png",
     "screenshotUrls": [
-      "https://slice-miniapp.vercel.app/assets/screenshot-1.png"
+      "https://slice-ochre.vercel.app/assets/screenshot-1.png"
     ],
     "noindex": true
   }
