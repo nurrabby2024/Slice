@@ -1,0 +1,32 @@
+{
+  "accountAssociation": {
+    "header": "TODO_REPLACE_WITH_BASE64_HEADER",
+    "payload": "TODO_REPLACE_WITH_BASE64_PAYLOAD",
+    "signature": "TODO_REPLACE_WITH_BASE64_SIGNATURE"
+  },
+  "miniapp": {
+    "version": "1",
+    "name": "Slice",
+    "homeUrl": "https://slice-miniapp.vercel.app/",
+    "iconUrl": "https://slice-miniapp.vercel.app/assets/icon.png",
+    "splashImageUrl": "https://slice-miniapp.vercel.app/assets/splash.png",
+    "splashBackgroundColor": "#050816",
+    "subtitle": "Choose your next hour with one tap.",
+    "description": "Slice is a tiny planner for your next hour: tap a slice like Deep Work or Rest and watch your day fill with color.",
+    "primaryCategory": "productivity",
+    "tags": [
+      "focus",
+      "planner",
+      "hour"
+    ],
+    "heroImageUrl": "https://slice-miniapp.vercel.app/assets/hero.png",
+    "tagline": "Choose your next hour with one tap.",
+    "ogTitle": "Slice",
+    "ogDescription": "Slice is a tiny planner for your next hour: tap a slice like Deep Work or Rest and watch your day fill with color.",
+    "ogImageUrl": "https://slice-miniapp.vercel.app/assets/hero.png",
+    "screenshotUrls": [
+      "https://slice-miniapp.vercel.app/assets/screenshot-1.png"
+    ],
+    "noindex": true
+  }
+}
