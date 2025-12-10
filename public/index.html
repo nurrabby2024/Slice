@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Slice</title>
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Slice" />
+  <meta property="og:description" content="Slice is a tiny planner for your next hour: tap a slice like Deep Work or Rest and watch your day fill with color." />
+  <meta property="og:image" content="https://slice-miniapp.vercel.app/assets/hero.png" />
+  <meta property="og:url" content="https://slice-miniapp.vercel.app/" />
+  <meta property="og:type" content="website" />
+
+  <!-- Farcaster Mini App embed -->
+  <meta
+    name="fc:miniapp"
+    content='{
+      "version":"1",
+      "imageUrl":"https://slice-miniapp.vercel.app/assets/embed-3x2.png",
+      "button":{
+        "title":"Slice",
+        "action":{
+          "type":"launch_frame",
+          "name":"Slice",
+          "url":"https://slice-miniapp.vercel.app/",
+          "splashImageUrl":"https://slice-miniapp.vercel.app/assets/splash.png",
+          "splashBackgroundColor":"#050816"
+        }
+      }
+    }'
+  />
+
+  <!-- Backward-compatible Frame meta -->
+  <meta
+    name="fc:frame"
+    content='{
+      "version":"1",
+      "imageUrl":"https://slice-miniapp.vercel.app/assets/embed-3x2.png",
+      "button":{
+        "title":"Slice",
+        "action":{
+          "type":"launch_frame",
+          "name":"Slice",
+          "url":"https://slice-miniapp.vercel.app/",
+          "splashImageUrl":"https://slice-miniapp.vercel.app/assets/splash.png",
+          "splashBackgroundColor":"#050816"
+        }
+      }
+    }'
+  />
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #020617, #020617 40%, #000 100%);
+      color: #e5e7eb;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+    .card {
+      background: rgba(15, 23, 42, 0.9);
+      border-radius: 24px;
+      padding: 22px 18px;
+      max-width: 420px;
+      width: 100%;
+      box-shadow: 0 24px 60px rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(148, 163, 184, 0.4);
+    }
+    .title-row {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-bottom: 8px;
+    }
+    .title {
+      font-size: 1.35rem;
+      font-weight: 700;
+    }
+    .env-pill {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      padding: 4px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      color: #9ca3af;
+    }
+    .subtitle {
+      font-size: 0.88rem;
+      color: #9ca3af;
+      margin-bottom: 16px;
+    }
+    .label {
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #6b7280;
+      margin-bottom: 8px;
+    }
+    .slices {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+    .slice-btn {
+      border-radius: 16px;
+      border: none;
+      padding: 12px 10px;
+      cursor: pointer;
+      text-align: left;
+      color: #020617;
+      font-size: 0.9rem;
+      font-weight: 600;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.45);
+      transition: transform 0.09s ease-out, box-shadow 0.09s ease-out, filter 0.1s ease-out;
+    }
+    .slice-btn span.sub {
+      font-size: 0.7rem;
+      opacity: 0.9;
+    }
+    .slice-btn:active {
+      transform: translateY(1px) scale(0.98);
+      box-shadow: none;
+      filter: brightness(0.96);
+    }
+    .slice-btn[data-type="deep"] {
+      background: linear-gradient(135deg, #22c55e, #0ea5e9);
+    }
+    .slice-btn[data-type="social"] {
+      background: linear-gradient(135deg, #f97316, #ec4899);
+    }
+    .slice-btn[data-type="rest"] {
+      background: linear-gradient(135deg, #6366f1, #a855f7);
+    }
+    .slice-btn[data-type="errands"] {
+      background: linear-gradient(135deg, #facc15, #f97316);
+    }
+    .timeline {
+      display: grid;
+      grid-template-columns: repeat(8, minmax(0, 1fr));
+      gap: 4px;
+      margin-bottom: 10px;
+    }
+    .tile {
+      height: 18px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.8);
+      border: 1px solid rgba(148, 163, 184, 0.3);
+    }
+    .tile[data-type="deep"] {
+      background: linear-gradient(90deg, #22c55e, #0ea5e9);
+    }
+    .tile[data-type="social"] {
+      background: linear-gradient(90deg, #f97316, #ec4899);
+    }
+    .tile[data-type="rest"] {
+      background: linear-gradient(90deg, #6366f1, #a855f7);
+    }
+    .tile[data-type="errands"] {
+      background: linear-gradient(90deg, #facc15, #f97316);
+    }
+    .microcopy {
+      font-size: 0.76rem;
+      color: #9ca3af;
+      margin-bottom: 4px;
+      min-height: 30px;
+    }
+    .status-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.76rem;
+      color: #6b7280;
+      margin-top: 6px;
+    }
+    .status-strong {
+      color: #c4b5fd;
+      font-weight: 500;
+    }
+  </style>
+</head>
+<body>
+  <main class="card">
+    <div class="title-row">
+      <div class="title">Slice</div>
+      <div class="env-pill" id="env-label">web</div>
+    </div>
+    <div class="subtitle">Choose your next hour with one tap.</div>
+
+    <div class="label">Next hour slice</div>
+    <section class="slices">
+      <button class="slice-btn" data-type="deep">
+        Deep work
+        <span class="sub">no notifications, one task</span>
+      </button>
+      <button class="slice-btn" data-type="social">
+        Social
+        <span class="sub">people, messages, calls</span>
+      </button>
+      <button class="slice-btn" data-type="rest">
+        Rest
+        <span class="sub">breathe, stretch, reset</span>
+      </button>
+      <button class="slice-btn" data-type="errands">
+        Errands
+        <span class="sub">small tasks, life admin</span>
+      </button>
+    </section>
+
+    <div class="label">Today so far</div>
+    <div class="timeline" id="timeline"></div>
+
+    <p class="microcopy" id="hint"></p>
+
+    <div class="status-row">
+      <span id="status" class="status-strong">No slice chosen yet.</span>
+      <span id="streak-label">0 slices today</span>
+    </div>
+  </main>
+
+  <script src="/slice-ui.js"></script>
+  <script type="module" src="/script.js"></script>
+</body>
+</html>
